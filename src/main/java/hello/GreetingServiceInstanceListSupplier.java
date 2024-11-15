@@ -27,7 +27,6 @@ class GreetingServiceInstanceListSupplier implements ServiceInstanceListSupplier
 
   @Override
   public Flux<List<ServiceInstance>> get() {
-    System.out.println(host);
     return Flux.just(Arrays.asList(new DefaultServiceInstance(serviceId + "1", serviceId, host, 8090, false),
       new DefaultServiceInstance(serviceId + "2", serviceId, host, 8091, false),
       new DefaultServiceInstance(serviceId + "3", serviceId, host, 8092, false)));
