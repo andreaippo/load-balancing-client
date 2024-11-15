@@ -11,5 +11,5 @@ FROM eclipse-temurin:21-jre-jammy AS run
 RUN groupadd -f appuser && if [ $(id -u appuser > /dev/null 2>&1;echo $?) -ne 0 ]; then adduser --system --group appuser; fi
 USER appuser
 WORKDIR /home/appuser
-COPY --from=build --chown=appuser:appuser build/target/*-dependencies.jar /home/appuser/app.jar
-CMD java -jar /home/appuser/app.jar
+COPY --from=build --chown=appuser:appuser /build/target/*.jar /home/appuser/app.jar
+CMD java -agentlib:jdwp=transport=dt_socket,server=y,address=*:18080,suspend=n -jar /home/appuser/app.jar

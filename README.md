@@ -1,8 +1,12 @@
 Run with:
 
-`podman build -f Dockerfile -t org.example.load-balancing-client .`
+`podman build -f Dockerfile -t org.example.load-balancer .`
 
-`podman run -p 8080:8080 --name=load-balancing-client -d localhost/org.example.load-balancing-client:latest`
+Create bridge network if it does not exist:
+
+`podman network create --driver bridge andrea_bridge_default`
+
+`podman run --replace -e SPRING_PROFILES_ACTIVE=container --net andrea_bridge_default -p 8080:8080 -p 18080:18080 --name=load-balancer -d localhost/org.example.load-balancer:latest`
 
 Test with
 
